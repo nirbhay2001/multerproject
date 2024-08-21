@@ -34,12 +34,9 @@ const upload = multer({
 router.post("/register",upload.single("photo"),async(req,res)=>{
 
     const upload = await cloudinary.uploader.upload(req.file.path);
-    
     const {name} = req.body;
-    
     try {
         const date = moment(new Date()).format("YYYY-MM-DD");
-        
         const userdata = new users({
             name:name,
             imgpath:upload.secure_url,
@@ -60,7 +57,6 @@ router.get("/getdata",async(req,res)=>{
     try {
         const getUser = await users.find();
         res.status(200).json(getUser);
-
     } catch (error) {
         res.status(400).json(error)
         

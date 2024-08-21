@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from "axios"
 import {useNavigate} from "react-router-dom"
+import axiosInstance from "../api/axiosInstance";
 
 const Register = () => {
 
@@ -13,25 +13,11 @@ const Register = () => {
 
     const addUserData = async(e)=>{
         e.preventDefault();
-
-        
-
-        const formData = new FormData(); // jab bhi photo aur file ko fronted se upload karte hai to formData ko use karna padta hai
+        const formData = new FormData();
         formData.append("photo",file);
         formData.append("name",name);
-
-        const config = {
-            headers:{
-                "Content-Type":"multipart/form-data" // for image and file
-            }
-        }
-
-
         try{
-
-            const res = await axios.post("http://localhost:4004/register",formData,config);
-        
-
+            const res = await axiosInstance.post("/api/v1/register",formData);
             if(res.status == 200){
                 navigate("/")
             }else{

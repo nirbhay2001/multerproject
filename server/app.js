@@ -11,8 +11,12 @@ connectDB();
 
 
 app.use(express.json());
-app.use(cors());
-app.use(router);
+app.use(cors({
+    origin:["http://localhost:3000", "https://upload-image-using-multer.vercel.app"],
+    methods:['POST','GET','HEAD','PUT','DELETE'],
+    credentials: true
+}));
+app.use('/api/v1',router);
 
 
 app.listen(port,()=>{

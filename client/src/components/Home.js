@@ -2,22 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import moment from "moment"
+import axiosInstance from "../api/axiosInstance";
 
 const Home = () => {
     const [data,setData] = useState([]);
-    console.log(data)
-
     const getUserData = async()=>{
-        const res = await axios.get("http://localhost:4004/getdata",{
-            headers:{
-                "Content-Type":"application/json"
-            }
-        });
-
-      
-
+        const res = await axiosInstance.get("/api/v1/getdata");
         if(res.status == 200){
             setData(res.data)
         }else{
